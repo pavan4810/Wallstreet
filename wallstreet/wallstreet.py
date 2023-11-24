@@ -445,6 +445,12 @@ class Call(Option):
     def theta(self):
         return self.BandS.theta()
 
+    @strike_required
+    def values(self):
+        result = [self.BandS.theta(), self.BandS.rho(), self.BandS.vega(), self.BandS.gamma(), self.BandS.delta(), self.BandS.impvol, self._volume, self._open_interest, self._cp, self._change, self._price, self._ask, self._bid]
+        if self.Option_type == "Call":
+            return result.reverse()
+        return result
 
 class Put(Call):
     Option_type = 'Put'
